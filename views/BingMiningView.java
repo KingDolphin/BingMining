@@ -1,6 +1,7 @@
 package views;
 
 import java.awt.Component;
+import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
@@ -9,6 +10,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,6 +22,7 @@ public class BingMiningView {
 	private JLabel moneyAmount;
 	private JLabel connectedUsersAmount;
 	private JLabel animationLabel;
+	private JLabel dbTableLabel;
 	
 	private List<OnCloseCallback> closeCallbacks;
 
@@ -36,13 +39,18 @@ public class BingMiningView {
 		moneyAmount.setText("MONEY MADE : $" + String.format("%.2f", 0.0));
 	}
 	
+	public void setDBText(String db) {
+		dbTableLabel.setText("<html><pre>"+db+"</pre></html>");
+		frame.pack();
+	}
+	
 	public void addOnCloseCallback(OnCloseCallback cc) {
 		closeCallbacks.add(cc);
 	}
 	
 	private void setup() {
 		frame = new JFrame("Bing Mining");
-		frame.setSize(500, 350);
+		frame.setSize(900, 150);
 		frame.setLocationRelativeTo(null);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
@@ -69,10 +77,20 @@ public class BingMiningView {
 			animationLabel = new JLabel(new ImageIcon("res/bingmining.gif"));
 			animationLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
 			
+			dbTableLabel = new JLabel("\na\nb\n\n\n\n\n\n\n\n\n\n\nz\n");
+			dbTableLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+			
+			dbTableLabel.setPreferredSize(new Dimension(500, 200));
+			JScrollPane scrollFrame = new JScrollPane(dbTableLabel);
+			dbTableLabel.setAutoscrolls(true);
+			scrollFrame.setPreferredSize(new Dimension(500, 200));
+			
+			
 			panel.add(title);
 			panel.add(moneyAmount);
 			panel.add(connectedUsersAmount);
 			panel.add(animationLabel);
+			panel.add(scrollFrame);
 		}
 		frame.add(panel);
 		

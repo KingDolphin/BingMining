@@ -5,6 +5,10 @@ import servers.ConnectionCallback;
 import views.BingMiningView;
 import views.OnCloseCallback;
 
+import java.io.InputStreamReader;
+import java.io.BufferedReader;
+import java.io.File;
+
 public class BingMiningController {
 
 	private BingMiningView view;
@@ -30,6 +34,23 @@ public class BingMiningController {
 		view.addOnCloseCallback(() -> {
 			server.stopServer();
 		});
+		
+		try {
+			Process cmdProc = Runtime.getRuntime().exec("./select.sh");
+			
+			BufferedReader r = new BufferedReader(new InputStreamReader(cmdProc.getInputStream()));
+			String table = "", line;
+			while ((line = r.readLine()) != null)
+				table += line + "\n";
+			BufferedReader r2 = new BufferedReader(new InputStreamReader(cmdProc.getErrorStream()));
+			while ((line = r2.readLine()) != null)
+				System.err.println(line);
+				
+			view.setDBText(table);
+			System.out.println(table);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 }
