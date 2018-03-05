@@ -1,4 +1,4 @@
-package views;
+package server.views;
 
 public interface OnCloseCallback {
 

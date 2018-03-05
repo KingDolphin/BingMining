@@ -1,4 +1,4 @@
-package views;
+package server.views;
 
 import java.awt.Component;
 import java.awt.Dimension;
@@ -14,7 +14,7 @@ import javax.swing.JScrollPane;
 import java.util.ArrayList;
 import java.util.List;
 
-public class BingMiningView {
+public class BingMiningServerView {
 
 	private JFrame frame;
 	private JPanel panel;
@@ -26,7 +26,7 @@ public class BingMiningView {
 	
 	private List<OnCloseCallback> closeCallbacks;
 
-	public BingMiningView() {
+	public BingMiningServerView() {
 		closeCallbacks = new ArrayList<>();
 		this.setup();
 	}
