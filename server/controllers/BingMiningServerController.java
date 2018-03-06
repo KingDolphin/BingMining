@@ -16,17 +16,17 @@ public class BingMiningServerController {
 	private BingMiningServer server;
 
 	public BingMiningServerController() {
-		view = new BingMiningView();
+		view = new BingMiningServerView();
 		
-		server = new BingMiningServerView(BingMiningServerView.DEFAULT_PORT);
+		server = new BingMiningServer(BingMiningServer.DEFAULT_PORT);
 		server.addConnectionCallback(new ConnectionCallback() {
 			@Override
-			public void onConnect(BingMiningServerView.ClientSocket cs) {
+			public void onConnect(BingMiningServer.ClientSocket cs) {
 				view.setUserAmount(server.getNumConnections());
 			}
 			
 			@Override
-			public void onDisconnect(BingMiningServerView.ClientSocket cs) {
+			public void onDisconnect(BingMiningServer.ClientSocket cs) {
 				view.setUserAmount(server.getNumConnections());
 			}
 		});
@@ -36,7 +36,7 @@ public class BingMiningServerController {
 		});
 		
 		try {
-			Process cmdProc = Runtime.getRuntime().exec("./select.sh");
+			Process cmdProc = Runtime.getRuntime().exec("../scripts/select.sh");
 			
 			BufferedReader r = new BufferedReader(new InputStreamReader(cmdProc.getInputStream()));
 			String table = "", line;
